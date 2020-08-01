@@ -12,20 +12,19 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
+    public function run(){
         $produtos = factory(Produto::class,100)->create();
         $pedidos = factory(Pedido::class,100)->create();
-
-        $pedidos->each(function($pedido) use ($produtos) {
-
-            $pedido->produtos()->attach($produtos->random(10)->reduce(function($actual,$produto){
-                $actual[$produto->id] = [
-                    'quantidade' => rand(1, 4),
-                    'preco_unidade' => $produto->preco
-                ];
+        $pedidos->each(function($pedido) use($produtos){
+            $produtoPedido = $produtos->random(5)->reduce(function($actual,$produto){
+                if(!array_key_exists($produto->id,$actual)){
+                    $actual[$produto->id] = [
+                        'quantidade' => rand(1, 4),
+                    ];
+                }
                 return $actual;
-            },[]));
+            },[]);
+            $pedido->produtos()->attach($produtoPedido);
         });
 
 

@@ -13,4 +13,9 @@ class PedidoService extends BaseService
         $this->repo->setSortBy('status');
         $this->repo->setRelations(['produtos','cliente']);
     }
+
+    public function createPedido($clienteId,$produtos){
+        return $this->repo->createPedido($clienteId,$produtos);
+    }
+
 }

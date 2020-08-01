@@ -29,13 +29,17 @@ class PedidoTest extends TestCase
         $pedido = factory(Pedido::class)->state('pendente')->create([
             'user_id' => $this->cliente->id
         ]);
-        $produtos = $this->produtos->filter( fn($produto) => $produto->id <= 10);
+        $produtos = $this->produtos->random(10);
 
         $pedido->produtos()->attach($produtos->reduce(function($actual,$produto){
-            $actual[$produto->id] = [
-                'quantidade' => rand(1, 4),
-                'preco_unidade' => $produto->preco
-            ];
+            if(array_key_exists($produto->id,$actual)){
+                $actual[$produto->id]['quantidade'] += rand(1,4);
+            }else {
+                $actual[$produto->id] = [
+                    'quantidade' => rand(1, 4),
+                    'preco_unidade' => $produto->preco
+                ];
+            }
             return $actual;
         },[]));
 
