@@ -11,7 +11,7 @@ class Produto extends Model
     protected $guarded = [];
 
     public function pedido(){
-        return $this->belongsToMany(Pedido::class,'id','produto_id');
+        return $this->belongsToMany(Pedido::class,'pedido_produto');
     }
 
 }

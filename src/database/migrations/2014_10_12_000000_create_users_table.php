@@ -20,8 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('telefone',16);
-            $table->string('endereco_linha1');
-            $table->string('endereco_linha2');
+            $table->string('endereco');
             $table->timestamps();
         });
     }

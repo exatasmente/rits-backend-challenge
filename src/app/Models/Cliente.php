@@ -10,8 +10,6 @@ class Cliente extends Model
 {
     protected $guarded = [];
 
-    public function pedidos(){
-        return $this->hasMany(Pedido::class,'id_cliente','id');
-    }
+
 
 }
