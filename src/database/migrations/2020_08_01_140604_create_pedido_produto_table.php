@@ -16,14 +16,14 @@ class CreatePedidoProdutoTable extends Migration
         Schema::create('pedido_produto', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pedido_id')
-                ->constrained('users')
+                ->constrained('pedidos')
                 ->onDelete('cascade');
             $table->foreignId('produto_id')
-                ->constrained('pedidos')
+                ->constrained('produtos')
                 ->onDelete('cascade');
 
             $table->integer('quantidade');
-            $table->integer('preco_unidade');
+            $table->decimal('preco_unidade',10,2);
             $table->timestamps();
         });
     }
