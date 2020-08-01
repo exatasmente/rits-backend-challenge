@@ -1,23 +1,19 @@
 <?php
 namespace App\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Repository implements RepositoryInterface
+use App\Repositories\Traits\HasRelations;
+use App\Repositories\Traits\Sortable;
+abstract class Repository
 {
-    // model property on class instances
-    protected $model;
-
-    // Constructor to bind model to repo
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-    }
-
+    use Sortable, HasRelations;
     // Get all instances of model
     public function all()
     {
-        return $this->model->all();
+
+        return $this->model
+            ->with($this->relations)
+            ->orderBy($this->sortBy, $this->sortOrder)
+            ->get();
     }
 
     // create a new record in the database
@@ -29,7 +25,7 @@ class Repository implements RepositoryInterface
     // update record in the database
     public function update(array $data, $id)
     {
-        $record = $this->find($id);
+        $record = $this->model->find($id);
         return $record->update($data);
     }
 
@@ -40,9 +36,9 @@ class Repository implements RepositoryInterface
     }
 
     // show the record with the given id
-    public function show($id)
+    public function find($id)
     {
-        return $this->model-findOrFail($id);
+        return $this->model->findOrFail($id);
     }
 
     // Get the associated model
@@ -56,11 +52,5 @@ class Repository implements RepositoryInterface
     {
         $this->model = $model;
         return $this;
-    }
-
-    // Eager load database relationships
-    public function with($relations)
-    {
-        return $this->model->with($relations);
     }
 }

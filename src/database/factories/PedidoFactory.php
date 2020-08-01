@@ -9,7 +9,7 @@ use Faker\Generator as Faker;
 $factory->define(Pedido::class, function (Faker $faker) {
     $status = $faker->randomElement([Pedido::PENDENTE, Pedido::EM_PREPARO,Pedido::EM_ENTREGA,Pedido::ENTREGUE,Pedido::CANCELADO]);
     return [
-        'user_id' => factory(User::class)->state('cliente')->create()->id,
+        'user_id' => fn() => factory(User::class)->state('cliente')->create()->id,
         'status' => $status
     ];
 });
