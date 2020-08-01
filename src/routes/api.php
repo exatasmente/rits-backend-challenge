@@ -15,16 +15,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::namespace('Api')->group(function(){
-    Route::get('/login',[LoginController::class,'show']);
-    Route::post('/login',[LoginController::class,'login']);
+Route::middleware('auth.api')->namespace('Api')->group(function(){
     Route::apiResource('signup','Auth\RegisterController');
-
-
-
-    Route::middleware('auth:api')->group(function () {
-        Route::resource('clientes', 'ClienteController');
-        Route::resource('pedidos', 'PedidoController');
-        Route::resource('produtos', 'ProdutoController');
+    Route::prefix('cliente/')->group(function(){
+        Route::resource('/', 'ClienteController',['except' => 'destroy','store']);
+        Route::resource('/pedido', 'PedidoController');
     });
+});
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'invalid endpoint'], 404);
 });

@@ -3,17 +3,26 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PedidoClienteRequest;
+use App\Services\ClienteService;
 use App\Services\PedidoService;
+use Illuminate\Support\Facades\Auth;
 
 class PedidoController extends Controller
 {
+    protected $clientes;
 
-    public function index(PedidoService $pedidos){
-        return $pedidos->all();
+    public function index(ClienteService $clientes){
+        return $clientes->find(Auth::user()->id)->pedidos;
     }
 
-    public function show(PedidoService $pedidos, $id){
-        return $pedidos->find($id);
+    public function store(PedidoClienteRequest $request,PedidoService $pedidos){
+        return $pedidos->createPedido(Auth::user()->id,$request->get('produtos'));
+    }
+
+    public function destroy(PedidoService $pedidos,$pedidoId)
+    {
+      return $pedidos->destroy($pedidoId);
     }
 
 }

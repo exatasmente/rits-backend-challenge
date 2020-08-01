@@ -23,7 +23,7 @@ class CreatePedidoProdutoTable extends Migration
                 ->onDelete('cascade');
 
             $table->integer('quantidade');
-            $table->decimal('preco_unidade',10,2);
+            //$table->decimal('preco_unidade',10,2);
             $table->timestamps();
         });
     }

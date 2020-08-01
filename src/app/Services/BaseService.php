@@ -32,6 +32,7 @@ abstract class BaseService
 
     public function destroy($id)
     {
+
         return $this->repo->destroy($id);
     }
 

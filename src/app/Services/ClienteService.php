@@ -12,4 +12,5 @@ class ClienteService extends BaseService
         $this->repo = $clienteRepository;
         $this->repo->setRelations(['pedidos','pedidos.produtos']);
     }
+
 }

@@ -7,11 +7,13 @@ use App\Services\ClienteService;
 
 class LoginController extends Controller
 {
-    public function index(ClienteService $clientes){
-        return $clientes->all();
-    }
-
-    public function show(ClienteService $clientes){
-        return $clientes->all();
+    public function store(LoginClienteRequest $request,ClienteService $clientes)
+    {
+        $valid = $request->validated();
+        if($valid) {
+            return $clientes->create($request->input());
+        }else{
+            return response()->json($valid);
+        }
     }
 }

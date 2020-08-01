@@ -8,15 +8,12 @@ use App\Services\ClienteService;
 
 class RegisterController extends Controller
 {
-    protected $service;
-    public function __construct(ClienteService $clientes){
-        $this->service = $clientes;
-    }
-    public function store(CadastroClienteRequest $request)
+
+    public function store(CadastroClienteRequest $request,ClienteService $clientes)
     {
         $valid = $request->validated();
         if($valid) {
-            return $this->service->create($request->input());
+            return $clientes->create($request->input());
         }else{
             return response()->json($valid);
         }

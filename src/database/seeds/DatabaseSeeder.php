@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
                 if(!array_key_exists($produto->id,$actual)){
                     $actual[$produto->id] = [
                         'quantidade' => rand(1, 4),
-                        'preco_unidade' => $produto->preco
                     ];
                 }
                 return $actual;

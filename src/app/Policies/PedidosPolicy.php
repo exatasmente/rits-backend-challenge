@@ -14,7 +14,7 @@ class PedidosPolicy
         return $pedido->user_id === $user->id;
     }
 
-    public function delete(User $user,Pedido $pedido){
+    public function destroy(User $user,Pedido $pedido){
         return $pedido->user_id === $user->id;
     }
 }
