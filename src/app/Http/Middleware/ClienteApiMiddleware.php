@@ -20,7 +20,7 @@ class ClienteApiMiddleware
         if (!$request->has('cliente_id')) {
             return response()->json([
                 'error' => 'Cliente inválido, forneça um cliente'
-            ]);
+            ],403);
         }else{
             $user = $this->clientes->find($request->get('cliente_id'));
             Auth::login($user);
