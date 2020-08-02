@@ -26,4 +26,22 @@ class PedidoStoreRequest extends FormRequest
             'produtos.*.quantidade.*' => 'Quantidade de produtos inválida'
         ];
     }
+
+    protected function validated()
+    {
+        $validated = parent::validated();
+        
+        $produtos = collect($validated['produtos'])->reduce(function($actual,$produto){
+            if(!array_key_exists($produto['id'],$actual)){
+                $actual[$produto['id']] = [
+                    'quantidade' => $produto['quantidade'],
+                ];
+            }
+            return $actual;
+        },[]);
+        $validated['produtos'] = $produtos;
+
+        return $validated;
+    }
+ 
 }

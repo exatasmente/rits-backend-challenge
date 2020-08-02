@@ -12,5 +12,9 @@ class ClienteService extends BaseService
         $this->repo = $clienteRepository;
         $this->repo->setRelations(['pedidos','pedidos.produtos']);
     }
+    
+    public function findPedido($clienteId,$pedidoId){
+        return $this->repo->findPedido($clienteId,$pedidoId);
+    }
 
 }

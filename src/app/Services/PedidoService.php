@@ -18,4 +18,21 @@ class PedidoService extends BaseService
         return $this->repo->createPedido($clienteId,$produtos);
     }
 
+    public function update($id, array $input){
+        $pedido = parent::update($id,$input);
+        //events
+    }
+
+    public function destroy($id){
+        $pedido = $this->repo->find($id);
+        if(!Auth::user()->can('destroy',$pedido)){
+            throw new AuthorizationException();
+        }
+        $status = parent::destroy($id);
+
+        //events
+
+        return $status;
+    }
+
 }

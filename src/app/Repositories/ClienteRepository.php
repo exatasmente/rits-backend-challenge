@@ -14,4 +14,11 @@ class ClienteRepository extends Repository
     public function find($id){
         return $this->model->with($this->relations)->findOrFail($id);
     }
+
+    public function findPedido($clienteId,$pedidoId){
+        $cliente = $this->find($clienteId);
+        $pedido $cliente->pedidos()->with('produtos')findOrFail($pedidoId)
+        return $pedido;
+    }
+
 }

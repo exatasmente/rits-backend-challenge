@@ -17,9 +17,9 @@ class PedidoController extends Controller
     public function index(ClienteService $clientes){
         return $clientes->find(Auth::user()->id)->pedidos;
     }
-    public function show(PedidoService $pedidos,ClienteService $clientes,$pedidoId){
-        $cliente =  $clientes->find(Auth::user()->id);
-        return $pedidos->find(optional($cliente->pedidos()->find($pedidoId))->id);
+    public function show(ClienteService $clientes,$pedidoId){
+    
+        return $clientes->findPedido(Auth::user()->id,$pedidoId);
 
     }
     public function store(PedidoStoreRequest $request,PedidoService $pedidos){

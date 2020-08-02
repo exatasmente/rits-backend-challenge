@@ -23,24 +23,8 @@ class PedidoRepository extends Repository
             'user_id' => $clienteId,
             'status'  => Pedido::PENDENTE
         ]);
-        $produtos = collect($produtos)->reduce(function($actual,$produto){
-            if(!array_key_exists($produto['id'],$actual)){
-                $actual[$produto['id']] = [
-                    'quantidade' => $produto['quantidade'],
-                ];
-            }
-            return $actual;
-        },[]);
+
         $pedido->produtos()->attach($produtos);
         return $pedido;
-    }
-
-    public function destroy($id)
-    {
-        $pedido = $this->find($id);
-        if(!Auth::user()->can('destroy',$pedido)) {
-            throw new AuthorizationException();
-        }
-        return $this->delete($id);
     }
 }
