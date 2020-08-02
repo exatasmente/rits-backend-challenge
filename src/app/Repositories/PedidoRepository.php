@@ -6,7 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
-class PedidoRepository extends Repository
+class PedidoRepository extends BaseRepository
 {
     protected $model;
     public function __construct(Pedido $pedido)
@@ -23,8 +23,15 @@ class PedidoRepository extends Repository
             'user_id' => $clienteId,
             'status'  => Pedido::PENDENTE
         ]);
-
         $pedido->produtos()->attach($produtos);
+
         return $pedido;
+    }
+
+    public function destroy($pedidoId){
+        return $this->update($pedidoId,[
+            'status' => Pedido::CANCELADO,
+
+        ]);
     }
 }

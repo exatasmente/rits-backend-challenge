@@ -15,14 +15,22 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware('auth.api')->namespace('Api')->group(function(){
-    Route::apiResource('signup','Auth\RegisterController');
-    Route::prefix('cliente/')->group(function(){
-        Route::resource('/', 'ClienteController',['except' => 'destroy','store']);
-        Route::resource('/pedido', 'PedidoController');
+
+Route::namespace('Api')->group(function(){
+    Route::post('signup',[RegisterController::class,'store']);
+
+    Route::middleware('auth.api')->group(function(){
+        Route::prefix('cliente/')->group(function(){
+            Route::apiResource('/', 'Cliente\ClienteController',['except' => ['destroy','store']]);
+            Route::apiResource('/pedido', 'Pedido\PedidoController',['except' => 'update']);
+        });
+        Route::apiResource('/produtos', 'Produto\ProdutoController',['except' => ['update','destroy','store']]);
+        Route::apiResource('/search/produtos', 'Produto\ProdutoSearchController',['except' => ['update','destroy','store']]);
     });
+    Route::fallback(function(){
+        return response()->json([
+            'message' => 'invalid endpoint'], 404);
+    });
+
 });
-Route::fallback(function(){
-    return response()->json([
-        'message' => 'invalid endpoint'], 404);
-});
+

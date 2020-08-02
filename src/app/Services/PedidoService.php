@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Repositories\PedidoRepository;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Auth;
 
 
 class PedidoService extends BaseService

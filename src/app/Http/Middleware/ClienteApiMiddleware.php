@@ -21,11 +21,13 @@ class ClienteApiMiddleware
             return response()->json([
                 'error' => 'Cliente inválido, forneça um cliente'
             ]);
-        }else {
+        }else if (Auth::user() == null){
             $user = User::find($request->get('cliente_id'));
-            if($user != null){
-                Auth::login($user);
-            }
+            Auth::login($user);
+        } else if (Auth::user()->id != $request->get('cliente_id')) {
+            return response()->json([
+                'error' => 'unauthorized, please logout to authenticate with other user',
+            ],403);
         }
         return $next($request);
     }

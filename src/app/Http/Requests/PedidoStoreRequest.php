@@ -15,6 +15,7 @@ class PedidoStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            "produtos" => "required",
             'produtos.*.id' => 'required|exists:produtos,id',
             'produtos.*.quantidade' => 'required|integer|min:1'
         ];
@@ -22,26 +23,30 @@ class PedidoStoreRequest extends FormRequest
     public function messages()
     {
         return [
+            'produtos.required' => 'É necessário pelo menos um produto',
             'produtos.*.exists' => 'O Produto é inválido',
-            'produtos.*.quantidade.*' => 'Quantidade de produtos inválida'
+            'produtos.*.id.*' => 'Produto inválido',
+            'produtos.*.quantidade.required' => 'A Quantidade de produtos é obrigatória',
+            'produtos.*.quantidade.min' => 'A Quantidade de produtos é inválida',
+            'produtos.*.quantidade.integer' => 'A Quantidade de produtos precisa ser um numero inteiro',
         ];
     }
 
-    protected function validated()
+    public function validated()
     {
         $validated = parent::validated();
-        
-        $produtos = collect($validated['produtos'])->reduce(function($actual,$produto){
-            if(!array_key_exists($produto['id'],$actual)){
-                $actual[$produto['id']] = [
-                    'quantidade' => $produto['quantidade'],
-                ];
-            }
-            return $actual;
-        },[]);
-        $validated['produtos'] = $produtos;
-
+        if(array_key_exists('produtos',$validated)) {
+            $produtos = collect($validated['produtos'])->reduce(function ($actual, $produto) {
+                if (!array_key_exists($produto['id'], $actual)) {
+                    $actual[$produto['id']] = [
+                        'quantidade' => $produto['quantidade'],
+                    ];
+                }
+                return $actual;
+            }, []);
+            $validated = $produtos;
+        }
         return $validated;
     }
- 
+
 }

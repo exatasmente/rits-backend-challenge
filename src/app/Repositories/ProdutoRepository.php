@@ -3,7 +3,7 @@ namespace App\Repositories;
 
 use App\Models\Produto;
 
-class ProdutoRepository extends Repository
+class ProdutoRepository extends BaseRepository
 {
     protected $model;
     public function __construct(Produto $produto)

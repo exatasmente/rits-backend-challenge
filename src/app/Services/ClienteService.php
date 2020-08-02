@@ -10,9 +10,9 @@ class ClienteService extends BaseService
     public function __construct(ClienteRepository $clienteRepository)
     {
         $this->repo = $clienteRepository;
-        $this->repo->setRelations(['pedidos','pedidos.produtos']);
+        $this->repo->setRelations(['pedidos']);
     }
-    
+
     public function findPedido($clienteId,$pedidoId){
         return $this->repo->findPedido($clienteId,$pedidoId);
     }
