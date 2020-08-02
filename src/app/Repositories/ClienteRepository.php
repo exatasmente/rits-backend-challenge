@@ -1,9 +1,10 @@
 <?php
 namespace App\Repositories;
 
+use App\Models\Pedido;
 use App\Models\User;
 
-class ClienteRepository extends BaseRepository
+class ClienteRepository extends BaseRepository implements RepositoryInterface
 {
     protected $model;
     public function __construct(User $cliente)
@@ -11,14 +12,19 @@ class ClienteRepository extends BaseRepository
         $this->model = $cliente;
     }
 
-    public function find($id){
-        return $this->model->with($this->relations)->findOrFail($id);
-    }
-
     public function findPedido($clienteId,$pedidoId){
         $cliente = $this->find($clienteId);
-        $pedido = $cliente->pedidos()->with('produtos')->findOrFail($pedidoId);
+        $this->setRelations(['pedidos','pedidos.produtos']);
+        $pedido = $cliente->pedidos()->findOrFail($pedidoId);
         return $pedido;
+    }
+
+    public function getPedidos($clienteId){
+        $this->setRelations(['pedidos','pedidos.produtos']);
+        $cliente = $this->find($clienteId);
+
+        return $this->executeQuery($cliente->pedidos());
+
     }
 
 }

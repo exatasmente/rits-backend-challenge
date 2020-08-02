@@ -11,8 +11,7 @@ class ProdutoSearchController extends Controller
 {
 
     public function index(ProdutoSearchRequest $request,ProdutoService $produtos){
-        $paginated = $request->get('paginate',false);
-        return ProdutoResource::collection($produtos->search($request->validated(),$paginated));
+        return ProdutoResource::collection($produtos->search($request->validated()));
     }
 
 

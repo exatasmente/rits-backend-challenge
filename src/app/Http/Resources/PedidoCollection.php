@@ -11,7 +11,7 @@ class PedidoCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => $this->collection
+            'data' => $this->collection->map(fn($pedido) => new PedidoResource($pedido))
         ];
     }
 }

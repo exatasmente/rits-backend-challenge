@@ -11,7 +11,7 @@ class PedidoService extends BaseService
 {
     public function __construct(PedidoRepository $pedidoRepository)
     {
-        $this->repo = $pedidoRepository;
+        parent::__construct($pedidoRepository);
         $this->repo->setSortBy('status');
         $this->repo->setRelations(['produtos','cliente']);
     }
