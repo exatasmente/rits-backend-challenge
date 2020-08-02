@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Http\Resources\Pedido as PedidoResource;
 class Cliente extends JsonResource
 {
 
@@ -15,7 +15,7 @@ class Cliente extends JsonResource
             'email' => $this->email,
             'endereco' => $this->endereco,
             'telefone' => $this->telefone,
-            'created_at' => $this->created_at,
+            'pedidos'  => PedidoResource::collection($this->pedidos)
         ];
     }
 }

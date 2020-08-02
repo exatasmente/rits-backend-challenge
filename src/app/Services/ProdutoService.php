@@ -9,7 +9,7 @@ class ProdutoService extends BaseService
 {
     public function __construct(ProdutoRepository $produtoRepository)
     {
-        $this->repo = $produtoRepository;
+        parent::__construct($produtoRepository);
         $this->repo->setSortBy('preco');
 
     }

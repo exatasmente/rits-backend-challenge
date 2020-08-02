@@ -6,9 +6,10 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
-class PedidoRepository extends BaseRepository
+class PedidoRepository extends BaseRepository implements RepositoryInterface
 {
     protected $model;
+
     public function __construct(Pedido $pedido)
     {
         $this->model = $pedido;

@@ -2,18 +2,26 @@
 
 namespace App\Services;
 
+use App\Repositories\BaseRepository;
+
 abstract class BaseService
 {
-    protected $repo;
+    protected BaseRepository $repo;
+    public function __construct(BaseRepository $repo){
+        $this->repo = $repo;
 
+        if(request()->get('paginate',false) == true){
+            $this->repo->setPagination(true,request()->get('paginate_items'));
+        }
+    }
     public function all()
     {
         return $this->repo->all();
     }
 
-    public function paginated($items = 15)
+    public function paginated()
     {
-        return $this->repo->paginated($items);
+        return $this->repo->paginated();
     }
     public function create(array $input)
     {
@@ -24,8 +32,8 @@ abstract class BaseService
         return $this->repo->find($id);
     }
 
-    public function search($search,$paginated = false,$items = 15){
-        return $this->repo->search($search,$paginated,$items);
+    public function search($search){
+        return $this->repo->search($search);
     }
 
     public function update($id, array $input)

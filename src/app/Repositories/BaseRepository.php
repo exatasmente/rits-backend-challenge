@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Repositories\Traits\HasPagination;
 use App\Repositories\Traits\HasRelations;
 use App\Repositories\Traits\Sortable;
 use Illuminate\Database\Eloquent\Builder;
@@ -8,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseRepository
 {
-    use Sortable, HasRelations;
+    use Sortable, HasRelations , HasPagination;
 
     public function all()
     {
@@ -18,18 +19,13 @@ abstract class BaseRepository
             ->get();
     }
 
-    public function paginated($items = 15)
+    public function paginated()
     {
-        return $this->paginateQuery(
+        return $this->executeQuery(
             $this->model
             ->with($this->relations)
-            ->orderBy($this->sortBy, $this->sortOrder),
-            $items
+            ->orderBy($this->sortBy, $this->sortOrder)
             );
-    }
-
-    private function paginateQuery($query,$items = 15){
-        return $query->paginate($items);
     }
 
     public function create(array $data)
@@ -53,19 +49,15 @@ abstract class BaseRepository
         return $this->model->findOrFail($id);
     }
 
-    public function search($search,$paginated = false,$items = 15){
+    public function search($search){
         /** @var Builder $query */
         $query = $this->model->newQuery();
 
         collect($search)->each(function ($field) use($query){
-
             $query->where($field['field'],$field['operator'], $field['value']);
         });
         $query->orderBy($this->sortBy, $this->sortOrder);
-        if($paginated === true){
-            return $this->paginateQuery($query,$items);
-        }
-        return $query->get();
+        return $this->executeQuery($query);
     }
 
     public function getModel()
@@ -77,5 +69,9 @@ abstract class BaseRepository
     {
         $this->model = $model;
         return $this;
+    }
+    public function executeQuery($query)
+    {
+        return $query->get();
     }
 }

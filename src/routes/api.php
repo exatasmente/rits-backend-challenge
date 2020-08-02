@@ -21,11 +21,11 @@ Route::namespace('Api')->group(function(){
 
     Route::middleware('auth.api')->group(function(){
         Route::prefix('cliente/')->group(function(){
-            Route::apiResource('/', 'Cliente\ClienteController',['except' => ['destroy','store']]);
-            Route::apiResource('/pedido', 'Pedido\PedidoController',['except' => 'update']);
+            Route::apiResource('/', 'Cliente\ClienteController',['only' => ['index']]);
+            Route::apiResource('/pedido', 'Pedido\PedidoController',['except' => 'update','edit']);
         });
-        Route::apiResource('/produtos', 'Produto\ProdutoController',['except' => ['update','destroy','store']]);
-        Route::apiResource('/search/produtos', 'Produto\ProdutoSearchController',['except' => ['update','destroy','store']]);
+        Route::apiResource('/produtos', 'Produto\ProdutoController',['only' => ['index','show']]);
+        Route::apiResource('/search/produtos', 'Produto\ProdutoSearchController',['only' => ['index']]);
     });
     Route::fallback(function(){
         return response()->json([
