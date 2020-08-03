@@ -23,5 +23,4 @@ trait HasPagination
         }
         return $query->get();
     }
-
 }

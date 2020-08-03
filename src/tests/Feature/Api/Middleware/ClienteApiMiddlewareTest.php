@@ -25,7 +25,7 @@ class ClienteApiMiddlewareTest extends TestCase
      */
     public function test_it_should_authenticate_a_cliente(){
         $cliente = factory(User::class)->state('cliente')->create();
-        $response = $this->get('/test?cliente_id=1',[
+        $response = $this->withoutExceptionHandling()->get('/test?cliente_id='.$cliente->id,[
             'accept' => 'application/json'
         ]);
         $response->assertSuccessful();

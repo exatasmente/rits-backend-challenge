@@ -10,8 +10,4 @@ class ProdutoRepository extends BaseRepository implements RepositoryInterface
     {
         $this->model = $produto;
     }
-
-    public function find($id){
-        return $this->model->with($this->relations)->findOrFail($id);
-    }
 }

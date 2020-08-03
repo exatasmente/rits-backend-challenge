@@ -15,7 +15,7 @@ class ProdutoSearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => 'required',
+            'nome' => 'string',
             'preco_min' => 'regex:/^\d*(\.\d{2})?$/|min:1',
             'preco_max' => 'regex:/^\d*(\.\d{2})?$/|min:2',
             'ordem' => "in:'asc','desc'|default:'asc'"
@@ -33,11 +33,14 @@ class ProdutoSearchRequest extends FormRequest
     public function validated()
     {
         $validated = parent::validated();
-        $search = [[
-            'field' => 'nome',
-            'value' => '%'.$validated['nome'].'%',
-            'operator' => 'like',
-        ]];
+        $search = [];
+        if(array_key_exists('nome',$validated)){
+            $search = [[
+                'field' => 'nome',
+                'value' => '%'.$validated['nome'].'%',
+                'operator' => 'like',
+            ]];
+        }
         if(array_key_exists('preco_min',$validated)){
             $search []= [
                 'field' => 'preco',

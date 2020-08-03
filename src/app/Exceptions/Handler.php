@@ -59,10 +59,6 @@ class Handler extends ExceptionHandler
                 return response()->json([
                     'error' => 'not found'], 404);
             }
-            if ($exception instanceof AuthorizationException) {
-                return response()->json([
-                    'error' => 'unauthorized'], 403);
-            }
             if($exception instanceof MethodNotAllowedHttpException){
                 return response()->json([
                     'error' => $exception->getMessage()], $exception->getStatusCode());
