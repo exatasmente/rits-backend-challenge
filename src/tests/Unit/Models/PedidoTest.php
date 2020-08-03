@@ -37,7 +37,6 @@ class PedidoTest extends TestCase
             }else {
                 $actual[$produto->id] = [
                     'quantidade' => rand(1, 4),
-                    'preco_unidade' => $produto->preco
                 ];
             }
             return $actual;
@@ -65,7 +64,6 @@ class PedidoTest extends TestCase
         $pedido->produtos()->attach($produtos->reduce(function($actual,$produto){
             $actual[$produto->id] = [
                 'quantidade' => rand(1, 4),
-                'preco_unidade' => $produto->preco
             ];
             return $actual;
         },[]));

@@ -1,16 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Validators;
 
-use Illuminate\Foundation\Http\FormRequest;
 
-class PedidoStoreRequest extends FormRequest
+use Illuminate\Support\Facades\Validator;
+
+class PedidoStoreValidator extends BaseValidator
 {
-
-    public function authorize()
-    {
-        return true;
-    }
 
     public function rules()
     {
@@ -32,15 +28,17 @@ class PedidoStoreRequest extends FormRequest
         ];
     }
 
-    public function validated()
+    public function validate()
     {
-        $validated = parent::validated();
+        $validated = parent::validate();
         if(array_key_exists('produtos',$validated)) {
             $produtos = collect($validated['produtos'])->reduce(function ($actual, $produto) {
                 if (!array_key_exists($produto['id'], $actual)) {
                     $actual[$produto['id']] = [
                         'quantidade' => $produto['quantidade'],
                     ];
+                }else {
+                    $actual[$produto['id']]['quantidade'] += $produto['quantidade'];
                 }
                 return $actual;
             }, []);

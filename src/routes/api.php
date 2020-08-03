@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Cliente\ClienteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,15 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api')->group(function(){
     Route::post('signup',[RegisterController::class,'store']);
+    Route::get('cliente/{cliente}', [ClienteController::class,'show']);
+    Route::apiResource('cliente/{cliente}/pedido', 'Pedido\PedidoController',['except' => 'update','edit']);
+    Route::apiResource('/produtos', 'Produto\ProdutoController',['only' => ['index','show']]);
+    Route::apiResource('/produtos/search', 'Produto\ProdutoSearchController',['only' => ['index']]);
 
-    Route::middleware('auth.api')->group(function(){
-        Route::prefix('cliente/')->group(function(){
-            Route::apiResource('/', 'Cliente\ClienteController',['only' => ['index']]);
-            Route::apiResource('/pedido', 'Pedido\PedidoController',['except' => 'update','edit']);
-        });
-        Route::apiResource('/produtos', 'Produto\ProdutoController',['only' => ['index','show']]);
-        Route::apiResource('/search/produtos', 'Produto\ProdutoSearchController',['only' => ['index']]);
-    });
     Route::fallback(function(){
         return response()->json([
             'message' => 'invalid endpoint'], 404);

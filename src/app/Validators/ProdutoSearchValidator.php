@@ -1,23 +1,18 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Validators;
 
-use Illuminate\Foundation\Http\FormRequest;
 
-class ProdutoSearchRequest extends FormRequest
+
+class ProdutoSearchValidator extends BaseValidator
 {
-
-    public function authorize()
-    {
-        return true;
-    }
 
     public function rules()
     {
         return [
-            'nome' => 'required',
-            'preco_min' => 'regex:/^\d*(\.\d{2})?$/|min:1',
-            'preco_max' => 'regex:/^\d*(\.\d{2})?$/|min:2',
+            'nome' => 'string',
+            'preco_min' => 'regex:/^\d*(\.\d{2})?$/|min:1|lt:preco_max',
+            'preco_max' => 'regex:/^\d*(\.\d{2})?$/|min:2|gt:preco_min',
             'ordem' => "in:'asc','desc'|default:'asc'"
         ];
     }
@@ -30,14 +25,17 @@ class ProdutoSearchRequest extends FormRequest
         ];
     }
 
-    public function validated()
+    public function validate()
     {
-        $validated = parent::validated();
-        $search = [[
-            'field' => 'nome',
-            'value' => '%'.$validated['nome'].'%',
-            'operator' => 'like',
-        ]];
+        $validated = parent::validate();
+        $search = [];
+        if(array_key_exists('nome',$validated)){
+            $search = [[
+                'field' => 'nome',
+                'value' => '%'.$validated['nome'].'%',
+                'operator' => 'like',
+            ]];
+        }
         if(array_key_exists('preco_min',$validated)){
             $search []= [
                 'field' => 'preco',

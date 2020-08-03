@@ -1,16 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Validators;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginClienteRequest extends FormRequest
+class LoginClienteValidator extends BaseValidator
 {
-
-    public function authorize()
-    {
-        return true;
-    }
 
     public function rules()
     {

@@ -25,7 +25,7 @@ class PedidoRepository extends BaseRepository implements RepositoryInterface
             'status'  => Pedido::PENDENTE
         ]);
         $pedido->produtos()->attach($produtos);
-
+        $pedido->load('produtos');
         return $pedido;
     }
 

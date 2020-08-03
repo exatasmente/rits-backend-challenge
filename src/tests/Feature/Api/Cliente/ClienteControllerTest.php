@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Pedido;
 use App\Models\Produto;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,20 +13,25 @@ use Tests\TestCase;
 class ClienteControllerTest extends TestCase
 {
     use RefreshDatabase;
+
+    public $cliente;
+    public $produtos;
     public function setUp() : void
     {
         parent::setUp();
         $this->cliente = factory(User::class)->state('cliente')->create();
-        $this->actingAs($this->cliente);
         $this->produtos = factory(Produto::class,100)->create();
     }
 
-    /** @test */
-    public function test_it_should_list_users_order()
+    /**
+     * @test
+     * @group api-cliente
+     */
+    public function test_it_should_see_cliente_info()
     {
-        Auth::login($this->cliente);
-        $response = $this->withoutExceptionHandling()->get('/api/produtos/');
 
-        $response->assertStatus(200);
+        $response = $this->getJson('/api/cliente/'.$this->cliente->id);
+        $response->assertSuccessful();
+
     }
 }

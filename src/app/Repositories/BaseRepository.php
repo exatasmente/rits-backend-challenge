@@ -13,10 +13,10 @@ abstract class BaseRepository
 
     public function all()
     {
-        return $this->model
+        return $this->executeQuery($this->model
             ->with($this->relations)
             ->orderBy($this->sortBy, $this->sortOrder)
-            ->get();
+            );
     }
 
     public function paginated()
@@ -70,8 +70,5 @@ abstract class BaseRepository
         $this->model = $model;
         return $this;
     }
-    public function executeQuery($query)
-    {
-        return $query->get();
-    }
+
 }

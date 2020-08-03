@@ -4,6 +4,7 @@
 namespace App\Models;
 
 
+use App\Http\Requests\PedidoStoreRequest;
 use Illuminate\Database\Eloquent\Model;
 
 class Pedido extends Model
@@ -36,5 +37,9 @@ class Pedido extends Model
           self::CANCELADO => 'Cancelado'
         ];
         return $status[$this->status];
+    }
+
+    public function validate($data){
+
     }
 }

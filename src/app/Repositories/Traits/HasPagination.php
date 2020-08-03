@@ -10,10 +10,10 @@ trait HasPagination
     public bool $paginated = false;
     public int $paginateItems = 15;
 
-    public function setPagination(bool $paginated,int $paginateItems)
+    public function setPagination($paginated,$paginateItems = 15)
     {
         $this->paginated = $paginated;
-        $this->paginateItems = $paginateItems;
+        $this->paginateItems = $paginateItems ?? 15;
     }
 
     public function executeQuery($query)
@@ -23,5 +23,4 @@ trait HasPagination
         }
         return $query->get();
     }
-
 }

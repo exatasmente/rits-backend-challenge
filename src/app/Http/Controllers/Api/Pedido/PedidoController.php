@@ -4,34 +4,31 @@ namespace App\Http\Controllers\Api\Pedido;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Pedido as PedidoResource;
-use App\Http\Requests\PedidoDestroyRequest;
-use App\Http\Requests\PedidoStoreRequest;
 use App\Http\Resources\Pedido;
-use App\Http\Resources\PedidoCollection;
 use App\Services\ClienteService;
 use App\Services\PedidoService;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
 
 class PedidoController extends Controller
 {
     protected $clientes;
 
-    public function index(ClienteService $clientes){
-        $pedidos = $clientes->getPedidos(Auth::user()->id);
-
+    public function index(ClienteService $clientes,$clienteId){
+        $pedidos = $clientes->getPedidos($clienteId);
         return PedidoResource::collection($pedidos);
     }
-    public function show(ClienteService $clientes,$pedidoId){
-        $pedido = $clientes->findPedido(Auth::user()->id,$pedidoId);
+    public function show(ClienteService $clientes,$clienteId,$pedidoId){
+        $pedido = $clientes->findPedido($clienteId,$pedidoId);
         return new PedidoResource($pedido);
     }
-    public function store(PedidoStoreRequest $request,PedidoService $pedidos){
-        return $pedidos->createPedido(Auth::user()->id,$request->validated());
+    public function store(Request $request,PedidoService $pedidos,$clienteId){
+        return new PedidoResource($pedidos->createPedido($clienteId,$request->input()));
     }
 
-    public function destroy(PedidoService $pedidos,$pedidoId)
+    public function destroy(ClienteService $clientes,$clienteId,$pedidoId)
     {
-      return $pedidos->destroy($pedidoId);
+      return $clientes->destroyPedido($clienteId,$pedidoId);
     }
 
 

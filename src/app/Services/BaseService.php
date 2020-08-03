@@ -3,13 +3,13 @@
 namespace App\Services;
 
 use App\Repositories\BaseRepository;
-
+use  App\Validators\ValidatorInterface as Validator;
 abstract class BaseService
 {
     protected BaseRepository $repo;
+
     public function __construct(BaseRepository $repo){
         $this->repo = $repo;
-
         if(request()->get('paginate',false) == true){
             $this->repo->setPagination(true,request()->get('paginate_items'));
         }

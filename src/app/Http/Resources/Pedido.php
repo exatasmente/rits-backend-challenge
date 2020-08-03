@@ -15,7 +15,7 @@ class Pedido extends JsonResource
             'cliente' => new ClienteResource($this->whenLoaded('cliente')),
             'produtos' =>  ProdutoResource::collection($this->produtos),
             'status' => $this->statusString,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->toDateTimeString(),
         ];
     }
 }
