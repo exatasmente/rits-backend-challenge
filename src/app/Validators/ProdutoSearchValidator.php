@@ -11,9 +11,9 @@ class ProdutoSearchValidator extends BaseValidator
     {
         return [
             'nome' => 'string',
-            'preco_min' => 'regex:/^\d*(\.\d{2})?$/|min:1|lt:preco_max',
-            'preco_max' => 'regex:/^\d*(\.\d{2})?$/|min:2|gt:preco_min',
-            'ordem' => "in:'asc','desc'|default:'asc'"
+            'preco_min' => 'regex:/^\d*(\.\d{2})?$/|min:0',
+            'preco_max' => 'regex:/^\d*(\.\d{2})?$/|min:1',
+            'ordem' => "in:'asc','desc'"
         ];
     }
 
@@ -21,7 +21,8 @@ class ProdutoSearchValidator extends BaseValidator
     {
         return [
             'nome.required' => 'Nome do Produto é obrigatório',
-            'preco_min' => 'O Preço minimo é inválido'
+            'preco_min' => 'O Preço minimo é inválido',
+            'preco_max' => 'O Preço máximo é inválido'
         ];
     }
 
@@ -50,6 +51,7 @@ class ProdutoSearchValidator extends BaseValidator
                 'operator' => '<=',
             ];
         }
+
         return $search;
     }
 

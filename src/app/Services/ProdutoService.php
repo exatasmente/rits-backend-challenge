@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\ProdutoRepository;
+use App\Validators\ProdutoSearchValidator;
 
 
 class ProdutoService extends BaseService
@@ -13,5 +14,12 @@ class ProdutoService extends BaseService
         $this->repo->setSortBy('created_at');
         $this->repo->setSortOrder('asc');
 
+    }
+
+    public function search($data)
+    {
+        $validator = new ProdutoSearchValidator($data);
+        $search = $validator->validate();
+        return parent::search($search);
     }
 }

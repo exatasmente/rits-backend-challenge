@@ -11,6 +11,7 @@ class ProdutoSearchController extends Controller
 {
 
     public function index(Request $request, ProdutoService $produtos){
+
         return ProdutoResource::collection($produtos->search($request->input()));
     }
 
