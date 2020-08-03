@@ -30,7 +30,7 @@ class ClienteControllerTest extends TestCase
     public function test_it_should_see_cliente_info()
     {
 
-        $response = $this->getJson('/api/cliente?cliente_id='.$this->cliente->id);
+        $response = $this->getJson('/api/cliente/'.$this->cliente->id);
         $response->assertSuccessful();
 
     }

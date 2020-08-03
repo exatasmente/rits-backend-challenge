@@ -19,10 +19,14 @@ class ClienteRepository extends BaseRepository implements RepositoryInterface
         return $pedido;
     }
 
-    public function getPedidos($clienteId){
+    public function getPedidos($clienteId,$filter = null){
         $this->setRelations(['pedidos','pedidos.produtos']);
         $cliente = $this->find($clienteId);
-
+        if($filter != null){
+            return $this->executeQuery(
+                $cliente->pedidos()->where('status',$filter)
+            );
+        }
         return $this->executeQuery($cliente->pedidos());
 
     }

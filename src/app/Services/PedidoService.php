@@ -2,13 +2,17 @@
 
 namespace App\Services;
 
+use App\Validators\PedidoStoreValidator;
 use App\Repositories\PedidoRepository;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 
 class PedidoService extends BaseService
 {
+
     public function __construct(PedidoRepository $pedidoRepository)
     {
         parent::__construct($pedidoRepository);
@@ -16,7 +20,10 @@ class PedidoService extends BaseService
         $this->repo->setRelations(['produtos','cliente']);
     }
 
-    public function createPedido($clienteId,$produtos){
+    public function createPedido($clienteId,$data){
+        $validator = new PedidoStoreValidator($data);
+        $produtos = $validator->validate();
+
         return $this->repo->createPedido($clienteId,$produtos);
     }
 
@@ -24,17 +31,4 @@ class PedidoService extends BaseService
         $pedido = parent::update($id,$input);
         //events
     }
-
-    public function destroy($id){
-        $pedido = $this->repo->find($id);
-        if(!Auth::user()->can('destroy',$pedido)){
-            throw new AuthorizationException();
-        }
-        $status = parent::destroy($id);
-
-        //events
-
-        return $status;
-    }
-
 }

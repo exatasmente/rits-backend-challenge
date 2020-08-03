@@ -1,16 +1,9 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Validators;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class CadastroClienteRequest extends FormRequest
+class ClienteCreateValidator extends BaseValidator
 {
-
-    public function authorize()
-    {
-        return true;
-    }
 
     public function rules()
     {
