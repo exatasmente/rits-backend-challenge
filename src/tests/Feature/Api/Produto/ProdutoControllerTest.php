@@ -10,6 +10,7 @@ use Tests\TestCase;
 
 class ProdutoControllerTest extends TestCase
 {
+    use RefreshDatabase;
 
     public $cliente;
     public $produtos;
