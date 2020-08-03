@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Api\Produto;
 
 use App\Models\Produto;
 use App\Models\User;
@@ -10,6 +10,7 @@ use Tests\TestCase;
 
 class ProdutoControllerTest extends TestCase
 {
+    use RefreshDatabase;
 
     public $cliente;
     public $produtos;

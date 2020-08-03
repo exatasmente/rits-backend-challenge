@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\BaseRepository;
-use  App\Validators\ValidatorInterface as Validator;
+
 abstract class BaseService
 {
     protected BaseRepository $repo;
