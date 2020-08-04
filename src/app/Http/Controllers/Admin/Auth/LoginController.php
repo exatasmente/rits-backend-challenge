@@ -16,24 +16,7 @@ class LoginController extends Controller
         return view('login');
     }
 
-    public function authenticate(Request $request)
-    {
-        $validator = $request->validate([
-            'email'     => 'required',
-            'password'  => 'required|min:6'
-        ]);
 
-        if (Auth::attempt($validator)) {
-            return redirect()->route('dashboard');
-        }
-        return redirect()->route('login')->with('error','Cliente inválido');
-    }
 
-    public function logout()
-    {
-        Session::flush();
-        Auth::logout();
-        return back();
-    }
 
 }

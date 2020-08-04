@@ -1,5 +1,5 @@
 @if ($errors->any() or session()->has('error'))
-<div class="rounded-md bg-red-200 p-4 my-2">
+<div wire:transition.slide.down.500ms class="rounded-md bg-red-200 p-4 my-2">
     <div class="flex">
         <div class="flex-shrink-0">
             <svg class="h-8 w-8 text-red-400" viewBox="0 0 20 20" fill="currentColor">
@@ -12,11 +12,17 @@
             </h3>
             <div class="mt-2 text-md leading-5 text-red-700">
                 <ul class="list-disc pl-5">
-                    @foreach ($errors->all() as $error)
+                    @if($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <li class="mt-1">
+                                {{$error}}
+                            </li>
+                        @endforeach
+                    @else
                         <li class="mt-1">
-                            {{$error}}
+                            {{session()->get('error')}}
                         </li>
-                    @endforeach
+                    @endif
                 </ul>
             </div>
         </div>

@@ -30,7 +30,7 @@ class Pedido extends Model
     public function getStatusStringAttribute()
     {
         $status = [
-          self::PENDENTE => 'Pending',
+          self::PENDENTE => 'Pendente',
           self::EM_PREPARO => 'Em Preparo',
           self::EM_ENTREGA => 'Em Transporte',
           self::ENTREGUE   => 'Entregue',

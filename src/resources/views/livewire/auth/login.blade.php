@@ -1,14 +1,17 @@
 <div>
-    @include('shared.alerts')
+
+
     <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+
         <div class="max-w-md w-full">
+                @include('shared.alerts')
             <div>
                 <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
                     Login
                 </h2>
             </div>
 
-            <form wire:submit.prevent="authenticate" class="mt-8" >
+            <form wire:submit.prevent="authenticate" class="mt-8"  method="POST">
                 @csrf
                 <div>
                     <x-input

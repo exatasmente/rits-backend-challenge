@@ -9,7 +9,7 @@ class CheckIsAdmin
 {
     public function handle($request, Closure $next)
     {
-        if (!Auth::user()->role != 'admin') {
+        if (Auth::user()->role != 'admin') {
             Auth::logout();
             return redirect('/login');
         }
