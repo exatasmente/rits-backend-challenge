@@ -11,13 +11,11 @@ use Illuminate\Support\Facades\Session;
 Route::livewire('/login', 'auth.login')->name('login')->middleware('guest');
 Route::middleware(['auth' ,'auth.admin'])->prefix('admin')->group(function(){
     Route::livewire('/','admin.dashboard')->name('admin.dashboard');
+    Route::livewire('/produtos','admin.produto.produto')->name('admin.produtos');
+    Route::livewire('/produtos/editar/{produto}','admin.produto.produto-form')->name('admin.produtos.editar');
+    Route::livewire('/produtos/novo','admin.produto.produto-form')->name('admin.produtos.criar');
 
-    Route::namespace('Admin')->group(function(){
-        Route::resource('clientes', 'ClienteController');
-        Route::resource('pedidos', 'PedidoController');
-        Route::resource('produtos', 'ProdutoController');
-    });
-
+    Route::livewire('/clientes','admin.cliente.cliente')->name('admin.clientes');
     Route::get('/logout', function(){
         Session::flush();
         Auth::logout();
