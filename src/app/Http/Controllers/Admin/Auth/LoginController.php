@@ -4,14 +4,19 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Services\ClienteService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
-    public function index(ClienteService $clientes){
-        return $clientes->all();
+
+    public function show()
+    {
+        return view('login');
     }
 
-    public function show(ClienteService $clientes){
-        return $clientes->all();
-    }
+
+
+
 }
