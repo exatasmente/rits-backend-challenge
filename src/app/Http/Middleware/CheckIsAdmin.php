@@ -10,6 +10,7 @@ class CheckIsAdmin
     public function handle($request, Closure $next)
     {
         if (Auth::user()->role != 'admin') {
+            session()->flash('error','Usuário Inváido');
             Auth::logout();
             return redirect('/login');
         }

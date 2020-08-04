@@ -18,15 +18,20 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+    </style>
 </head>
 <body >
 <div class="h-screen flex overflow-hidden">
     @auth
         @include('menu')
     @endauth
-    <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none " tabindex="0">
+    <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none mb-10 md:mb-0" tabindex="0">
         <div class="m-auto px-4">
+
             @yield('content')
         </div>
         @stack('body-script')

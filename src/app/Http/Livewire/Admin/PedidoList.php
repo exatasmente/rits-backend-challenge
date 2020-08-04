@@ -13,6 +13,9 @@ class PedidoList extends Component
     public $type;
     public $grid;
     public $listName;
+    public $pedidosTotal;
+
+    protected $listeners = ['pedidoUpdated' => '$refresh'];
 
     public function paginationView()
     {
@@ -33,15 +36,19 @@ class PedidoList extends Component
     public function mount(int $type,$grid= false,$listName){
         $this->type = $type;
         $this->grid = $grid;
-        $this->page = 1;
         $this->listName = $listName;
     }
 
+    public function pedidoUpdated($status){
+    }
 
     public function render()
     {
-        $pedidos = Pedido::where('status',$this->type)->with(['produtos','cliente'])->simplePaginate(10);
-        $pedidos->withPath('paginate');
+        $pedidos = Pedido::where('status',$this->type)
+            ->with(['produtos','cliente'])
+            ->orderBy('updated_at','desc');
+        $this->pedidosTotal = $pedidos->count();
+        $pedidos = $pedidos->simplePaginate(5);
         return view('livewire.admin.pedido-list',[
             'pedidos' => $pedidos
         ]);
