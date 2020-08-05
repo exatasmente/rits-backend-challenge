@@ -2,7 +2,7 @@
 
 ## Para Executar :
 O projeto utiliza o Docker Compose para executar :
-`docker-compose up -b --build`
+`docker-compose up -d --build`
 
 
 ## A Aplicação
