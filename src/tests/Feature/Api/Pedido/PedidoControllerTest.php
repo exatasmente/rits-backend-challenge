@@ -346,7 +346,7 @@ class PedidoControllerTest extends TestCase
                return $actual;
             },
         []));
-        $response->assertJsonPath('data.status','Pending');
+        $response->assertJsonPath('data.status','Pendente');
         $response->assertJsonPath('data.created_at',Carbon::now()->toDateTimeString());
         $this->assertDatabaseHas('pedidos',[
             'status' => Pedido::PENDENTE,

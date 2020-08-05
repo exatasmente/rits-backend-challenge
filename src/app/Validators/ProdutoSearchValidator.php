@@ -7,7 +7,7 @@ namespace App\Validators;
 class ProdutoSearchValidator extends BaseValidator
 {
 
-    public static function rules()
+    public function rules()
     {
         return [
             'nome' => 'string',
@@ -17,7 +17,7 @@ class ProdutoSearchValidator extends BaseValidator
         ];
     }
 
-    public static function messages()
+    public function messages()
     {
         return [
             'nome.required' => 'Nome do Produto é obrigatório',
@@ -26,7 +26,7 @@ class ProdutoSearchValidator extends BaseValidator
         ];
     }
 
-    public static function validate()
+    public function validate()
     {
         $validated = parent::validate();
         $search = [];
@@ -51,7 +51,6 @@ class ProdutoSearchValidator extends BaseValidator
                 'operator' => '<=',
             ];
         }
-
         return $search;
     }
 

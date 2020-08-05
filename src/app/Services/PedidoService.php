@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\NovoPedidoEvent;
 use App\Validators\PedidoStoreValidator;
 use App\Repositories\PedidoRepository;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -23,8 +24,9 @@ class PedidoService extends BaseService
     public function createPedido($clienteId,$data){
         $validator = new PedidoStoreValidator($data);
         $produtos = $validator->validate();
-
-        return $this->repo->createPedido($clienteId,$produtos);
+        $pedido = $this->repo->createPedido($clienteId,$produtos);
+        event(new NovoPedidoEvent($pedido));
+        return $pedido;
     }
 
     public function update($id, array $input){

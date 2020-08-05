@@ -12,8 +12,13 @@ trait HasPagination
 
     public function setPagination($paginated,$paginateItems = 15)
     {
+        if(is_integer($paginateItems)){
+            $paginateItems = $paginateItems <= 50 and $paginateItems > 0 ? $paginateItems : 15 ;
+        }else{
+            $paginateItems = 15;
+        }
         $this->paginated = $paginated;
-        $this->paginateItems = $paginateItems ?? 15;
+        $this->paginateItems = $paginateItems;
     }
 
     public function executeQuery($query)

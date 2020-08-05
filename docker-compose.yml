@@ -1,6 +1,7 @@
 version: '3'
 networks:
-  laravel:
+  backend:
+  frontend:
 services:
   site:
     image: nginx:stable-alpine
@@ -14,7 +15,8 @@ services:
       - php
       - mysql
     networks:
-      - laravel
+      - backend
+      - frontend
 
   mysql:
     image: mysql:5.7.29
@@ -31,7 +33,7 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     networks:
-      - laravel
+      - backend
     volumes:
       - ./mysql:/var/lib/mysql
   php:
@@ -44,7 +46,7 @@ services:
     ports:
       - "9000:9000"
     networks:
-      - laravel
+      - backend
 
   composer:
     image: composer:latest
@@ -55,7 +57,7 @@ services:
     depends_on:
       - php
     networks:
-      - laravel
+      - backend
 
   npm:
     image: node:13.7
@@ -77,11 +79,11 @@ services:
     working_dir: /var/www/html
     entrypoint: ['php', '/var/www/html/artisan']
     networks:
-      - laravel
+      - backend
   redis:
     image: redis
     command: redis-server --requirepass redispass!
     ports:
       - "6379:6379"
     networks:
-      - laravel
+      - backend

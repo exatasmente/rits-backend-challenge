@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\User as ClienteModel;
 use Livewire\WithPagination;
 
-class Cliente extends Component
+class ClienteList extends Component
 {
     use WithPagination;
     public $search = '';

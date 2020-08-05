@@ -1,33 +1,15 @@
-FROM php:7.4-fpm-alpine
+FROM phpdockerio/php74-fpm:latest
+WORKDIR var/www/html
 
-RUN apt-get update
+# Fix debconf warnings upon build
+ARG DEBIAN_FRONTEND=noninteractive
 
-# 1. development packages
-RUN apt-get install -y \
-    git \
-    zip \
-    curl \
-    sudo \
-    unzip \
-    libicu-dev \
-    libbz2-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libmcrypt-dev \
-    libreadline-dev \
-    libfreetype6-dev \
-    g++
+# Install selected extensions and other stuff
+RUN apt-get update \
+    && apt-get -y --no-install-recommends install  php7.4-mysql php-redis php-xdebug php7.4-bcmath php7.4-bz2 php7.4-gd php7.4-intl \
+    && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
-RUN docker-php-ext-install \
-    bz2 \
-    intl \
-    iconv \
-    bcmath \
-    opcache \
-    calendar \
-    mbstring \
-    pdo_mysql \
-    reids \
-    zip
-
-WORKDIR /var/www/html
+# Install git
+RUN apt-get update \
+    && apt-get -y install git \
+    && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
