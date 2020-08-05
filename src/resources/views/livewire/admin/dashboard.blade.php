@@ -30,7 +30,20 @@
                     </div>
                 </div>
             </div>
-
+            <div class="bg-white flex-1 sm:col-span-1">
+                <div class="xl:flex-shrink-0 xl:border-r xl:border-gray-200 bg-white">
+                    <div class="px-4 py-3">
+                        <livewire:admin.pedido-list type="4" list-name="Entregues:" key="em_entrega"></livewire:admin.pedido-list>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white flex-1 sm:col-span-1">
+                <div class="xl:flex-shrink-0 xl:border-r xl:border-gray-200 bg-white">
+                    <div class="px-4 py-3">
+                        <livewire:admin.pedido-list type="5" list-name="Cancelados:" key="em_entrega"></livewire:admin.pedido-list>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 </div>
+

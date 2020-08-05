@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Jobs\UpdatePedidoStatus;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use App\Models\Pedido as PedidoModel;
 class Pedido extends Component
@@ -33,6 +34,7 @@ class Pedido extends Component
                 ->update(['status' => $this->getNewStatus()]);
             $this->emit('pedidoUpdated',['pedido' => $this->pedido->id]);
         });
+        Log::info('Notification');
         UpdatePedidoStatus::dispatch($this->pedido)->onQueue('emails');
 
     }

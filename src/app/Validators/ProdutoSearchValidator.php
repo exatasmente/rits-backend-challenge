@@ -51,7 +51,6 @@ class ProdutoSearchValidator extends BaseValidator
                 'operator' => '<=',
             ];
         }
-
         return $search;
     }
 

@@ -26,10 +26,10 @@ Route::namespace('Api')->group(function(){
     Route::get('/produtos',[ProdutoController::class,'index']);
     Route::get('/produtos/{produto}',[ProdutoController::class,'show']);
     Route::get('/search/produtos',[ProdutoSearchController::class,'index']);
-
     Route::fallback(function(){
         return response()->json([
-            'message' => 'invalid endpoint'], 404);
+            'error' => 'invalid endpoint'
+        ],404);
     });
 
 });

@@ -2,6 +2,7 @@
 
 use App\Models\Pedido;
 use App\Models\Produto;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 
@@ -26,6 +27,14 @@ class DatabaseSeeder extends Seeder
             },[]);
             $pedido->produtos()->attach($produtoPedido);
         });
+        User::create([
+            'name' => 'Rits',
+            'role' => 'admin',
+            'email' => 'rits@backend.dev',
+            'password' => bcrypt('secret'),
+            'telefone' => '(88)888888888',
+            'endereco' => 'Address'
+        ]);
 
 
     }

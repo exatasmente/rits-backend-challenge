@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class PedidoStatusUpdated extends Notification
 {
@@ -26,8 +27,9 @@ class PedidoStatusUpdated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('O Status do seu pedido foi atualizado.')
-                    ->line($this->pedido->statusString);
+                ->markdown('emails.pedido-status-update',[
+                    'pedido' => $this->pedido
+                ]);
     }
 
     /**

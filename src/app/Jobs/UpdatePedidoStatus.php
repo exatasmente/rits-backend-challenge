@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class UpdatePedidoStatus implements ShouldQueue
 {
@@ -17,6 +18,7 @@ class UpdatePedidoStatus implements ShouldQueue
     protected $pedido;
     public function __construct(Pedido $pedido)
     {
+
         $this->pedido = $pedido;
     }
 

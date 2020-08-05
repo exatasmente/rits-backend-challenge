@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\Produto as ProdutoModel;
 use Livewire\WithPagination;
 
-class Produto extends Component
+class ProdutoList extends Component
 {
     use WithPagination;
     public $searchString = '';

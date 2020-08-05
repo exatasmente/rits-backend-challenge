@@ -73,6 +73,13 @@ return [
             'retry_after' => 90,
             'block_for' => null,
         ],
+        'notifications' => [
+            'driver' => 'redis',
+            'connection' => 'default',
+            'queue' => env('REDIS_NOTIFICATION_QUEUE', 'notifications'),
+            'retry_after' => 90,
+            'block_for' => null,
+        ],
 
     ],
 

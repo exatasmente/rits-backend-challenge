@@ -1,5 +1,4 @@
 <div>
-    @include('shared.alerts')
     @if($open == true)
         <x-modal wire:click="closeModal">
                 <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
@@ -56,7 +55,7 @@
                                     <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <input wire:model.debounce.250="searchString" id="search" class="bg-gray-500 bg-opacity-25 block border border-transparent duration-150 ease-in-out focus:outline-none focus:placeholder-gray-400 focus:text-gray-900 leading-5 pl-10 placeholder-indigo-300 pr-3 py-2 rounded-md sm:text-sm text-indigo-300 transition w-full" placeholder="Perquisar Produtos" type="search">
+                            <input wire:model.debounce.500ms="searchString" id="search" class="bg-gray-500 bg-opacity-25 block border border-transparent duration-150 ease-in-out focus:outline-none focus:placeholder-gray-400 focus:text-gray-900 leading-5 pl-10 placeholder-indigo-300 pr-3 py-2 rounded-md sm:text-sm text-indigo-300 transition w-full" placeholder="Perquisar Produtos" type="search">
                         </div>
                     </div>
                 </div>
@@ -69,7 +68,7 @@
                     {{$produtos->links('pagination')}}
 
                 </div>
-                <table class="min-w-full divide-y divide-gray-200">
+                <table wire:dirty.class="animate-pulse" wire:target="searchString" class="min-w-full divide-y divide-gray-200">
                     <thead>
                     <tr>
                         <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">

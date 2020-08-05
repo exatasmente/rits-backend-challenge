@@ -109,12 +109,14 @@
         </x-modal>
     @endif
     <div class="p-3">
-        <div class="bg-white border border-green-400 col-span-1 rounded-lg shadow-xl w-56" style="max-height: 400px">
+        <div class="bg-white border border-green-400 col-span-1 rounded-lg shadow-xl w-56 overflow-hidden" style="max-height: 400px">
             <div class="flex items-center justify-between">
                 <div class="w-full flex-1 p-3">
-                    <h3 class="text-gray-900 text-md leading-5 font-medium truncate">#Pedido : {{$pedido->id}}</h3>
-                    <time class="mt-2 text-gray-600  text-xs leading-5 break-all capitalize">{{$pedido->created_at->diffForHumans()}} ({{$pedido->created_at->format('d/m/Y - H:m:s')}})</time>
-                    <p class="mt-2 ml-2 text-gray-500 text-sm leading-5 break-all">{{$pedido->cliente->endereco}}</p>
+                    <h3 class="text-gray-900 text-md leading-5 font-medium truncate">#Pedido : {{$pedido->id}} <small class="text-xs pl-1 font-hairline">{{$pedido->created_at->diffForHumans()}}</small></h3>
+
+                    <time class="mt-2 text-gray-600  text-xs leading-5 break-all capitalize block">({{$pedido->created_at->format('d/m/Y - H:m:s')}})</time>
+
+                    <p class="mt-2 ml-2 text-gray-500 text-sm leading-5 break-all truncate">{{$pedido->cliente->endereco}}</p>
                     @if($pedido->status == 1)
                     <h3 class="text-gray-900 text-md leading-5 font-medium truncate my-3 ml-2 hidden md:block">Produtos</h3>
                     <dl class="px-6 px-4 grid grid-cols-1 col-gap-4 sm:grid-cols-2 hidden md:flex md:flex-wrap justify-between">
@@ -147,11 +149,13 @@
                             <span>Detalhes</span>
                         </button>
                     </div>
-                    <div class="-ml-px flex-1 flex">
-                        <button wire:click="confirmar"  type="button" class="flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-white font-medium border border-transparent rounded-br-lg hover:text-green-100 focus:outline-none focus:shadow-outline-blue focus:border-green-300 focus:z-10 transition ease-in-out duration-150  bg-green-400">
-                            <span class="space-x-1">Confirmar</span>
-                        </button>
-                    </div>
+                    @if($pedido->status < 4)
+                        <div class="-ml-px flex-1 flex">
+                            <button wire:click="confirmar"  type="button" class="flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-white font-medium border border-transparent rounded-br-lg hover:text-green-100 focus:outline-none focus:shadow-outline-blue focus:border-green-300 focus:z-10 transition ease-in-out duration-150  bg-green-400">
+                                <span class="space-x-1">Confirmar</span>
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
 

@@ -30,11 +30,13 @@
         @include('menu')
     @endauth
     <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none mb-10 md:mb-0" tabindex="0">
+        @auth
+            <livewire:notification-tracker></livewire:notification-tracker>
+        @endauth
         <div class="m-auto px-4">
-
             @yield('content')
         </div>
-        @stack('body-script')
+
     </main>
 </div>
 @livewireScripts

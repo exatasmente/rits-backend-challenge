@@ -3,7 +3,7 @@
         Novo Produto
     </h3>
     @if($errors->any())
-        @include('shared.alerts')
+        @include('shared.alerts.errors')
     @endif
     <div class="mt-10 sm:mt-0">
         <div class="md:grid md:grid-cols-2 md:gap-6">
