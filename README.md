@@ -25,7 +25,7 @@ e utilizando o padrão de `Repository` e fiz 3 serviços:
  > utilizando o `Repository` `ProdutoRepository` para comunicação com o banco de dados 
      
 ### Primeiro Desafio
-Após implementar a camada de Serviço e o Repository, e implementei a API na ordem :
+Após implementar a camada de Serviço e o Repository, foi implementado a API na ordem :
  - Cliente
     - Cadastro
     - Listar Pedidos 
