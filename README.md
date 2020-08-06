@@ -38,7 +38,7 @@ Após implementar a camada de Serviço e o Repository, foi implementado a API na
     - Listar Produtos
     - Buscar Produto
 
-## Segundo Desafio - Validadores
+## Segundo Desafio - Validadores 
 Utilizando o  `Validator` do Laravel e a definição de uma `Interface` chamada `ValidatorInterface` 
 que possui 3 métodos: 
  - rules
@@ -65,11 +65,11 @@ assim cada validação possui uma classe que é instanciada recebendo os dados q
   
 #### POST /signup
   Para o Cadastro a API recebe os campos :
-   - Email : `obrigatório` `email` `único`
-   - Name  : `obrigatório` `min:3`
-   - Password : `obrigatório` `min:6` 
-   - Telefone : `obrigatório` `regex:/\([0-9]{2}\)[0-9]{9}/` `único`
-   - Endereço : `obrigatório`
+   - `email` : `obrigatório` `email` `único`
+   - `name`  : `obrigatório` `min:3`
+   - `password` : `obrigatório` `min:6` 
+   - `telefone` : `obrigatório` `regex:/\([0-9]{2}\)[0-9]{9}/` `único`
+   - `endereço` : `obrigatório`
    
 #### GET /cliente/\{cliente\}
    - \{cliente\} : `int` , `exists:users`
@@ -465,3 +465,7 @@ assim cada validação possui uma classe que é instanciada recebendo os dados q
 Para o ambiente web utilizei o pacote `Laravel Livewire`, que permite criar aplicações web reativas utilizando somente PHP.
 No projeto também utilizei as Frameworks `TailwindCSS`  e `AlpineJs`.
 Com essas 3 ferramentas, desenvolvi o front-end com uma interface reativa utilizando somente PHP.
+
+
+
+
