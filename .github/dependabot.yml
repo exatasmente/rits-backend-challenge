@@ -1,0 +1,4 @@
+package-ecosystem: "composer"
+    directory: "/src"
+    schedule:
+      interval: "daily"
