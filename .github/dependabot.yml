@@ -1,4 +1,4 @@
 package-ecosystem: "composer"
-    directory: "/src"
+    directory: "src/"
     schedule:
       interval: "daily"
