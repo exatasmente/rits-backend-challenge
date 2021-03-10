@@ -1,7 +1,11 @@
 
 
 module.exports = {
-    purge: [],
+    purge: {
+        content: [
+            './resources/views/**/*.blade.php',
+        ]
+    },
     theme: {
     },
 
