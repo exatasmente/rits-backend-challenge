@@ -19,7 +19,7 @@
                         aria-label="Email"
                         name="email"
                         type="email"
-                        value="{{ old('email') }}"
+                        value="rits@backend.dev"
                         placeholder="email@exemplo.com"
                         class="appearance-none rounded-none relative block w-full px-3 py-2 border {{$errors->has('email') ? 'border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : 'border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300'}} rounded-md focus:outline-none focus:z-10 sm:text-sm sm:leading-5"
                     />
@@ -30,7 +30,7 @@
                         aria-label="Password"
                         name="password"
                         type="password"
-                        value="{{ old('password') }}"
+                        value="secret"
                         placeholder="Senha"
                         class="appearance-none rounded-none relative block w-full px-3 py-2 border {{$errors->has('password') ? 'border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red' : 'border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300'}} rounded-md focus:outline-none focus:z-10 sm:text-sm sm:leading-5"
                     />
