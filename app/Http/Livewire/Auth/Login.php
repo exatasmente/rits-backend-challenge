@@ -9,8 +9,8 @@ use Livewire\Component;
 class Login extends Component
 {
 
-    public $email = '';
-    public $password = '';
+    public $email = 'rits@backend.dev';
+    public $password = 'secret';
 
     final public function rules()
     {
