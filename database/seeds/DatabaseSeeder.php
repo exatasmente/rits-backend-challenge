@@ -14,6 +14,15 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run(){
+        User::create([
+            'name' => 'Rits',
+            'role' => 'admin',
+            'email' => 'rits@backend.dev',
+            'password' => bcrypt('secret'),
+            'telefone' => '(88)888888888',
+            'endereco' => 'Address'
+        ]);
+
         $produtos = factory(Produto::class,100)->create();
         $pedidos = factory(Pedido::class,100)->create();
         $pedidos->each(function($pedido) use($produtos){
@@ -27,14 +36,6 @@ class DatabaseSeeder extends Seeder
             },[]);
             $pedido->produtos()->attach($produtoPedido);
         });
-        User::create([
-            'name' => 'Rits',
-            'role' => 'admin',
-            'email' => 'rits@backend.dev',
-            'password' => bcrypt('secret'),
-            'telefone' => '(88)888888888',
-            'endereco' => 'Address'
-        ]);
 
 
     }
